@@ -1,0 +1,38 @@
+# Ignore les fichiers système
+*.DS_Store
+Thumbs.db
+
+# Ignore les environnements virtuels
+venv/
+.pyenv/
+
+# Ignore les fichiers compilés
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore les fichiers de configuration et les documents temporaux
+.env
+*.log
+*.tmp
+*.swp
+*.swn
+
+# Ignore les fichiers de développement
+*.bak
+*.orig
+*.rej
+
+# Ignore les fichiers de tests unitaires et d'intégration
+/tests/
+
+# Ignore les fichiers de documentation générés
+/docs/build/
+
+# Ignore les fichiers de build
+/build/
+/dist/
+
+# Ignore le dossier documents
+/documents/
