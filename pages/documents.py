@@ -42,7 +42,7 @@ if "is_saved" in st.session_state:
 # Corps de page
 
 st.header("Liste des documents disponibles pour la consultation de l'assistant")
-st.text("Voci la liste des documents actuellement dans votre base de données consultable par l'assistant IA. Pour ajouter des documents, sélectionner le bouton dédé ci-dessous. Ce(s) document(s) sera(seront) automatiquement ajoutés à vos sources consultables.")
+st.text("Voci la liste des documents actuellement dans votre base de données consultable par l'assistant IA. Pour ajouter des documents, sélectionner le bouton dédé ci-dessous. Ce(s) document(s) sera(seront) automatiquement ajouté(s) à vos sources consultables.")
 
 
 try:
