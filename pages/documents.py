@@ -26,7 +26,7 @@ def add_document_to_db(file_name: str, path: Path) -> None:
             st.session_state["is_saved"] = "Document ajouté avec succès dans vote base de connaissance !"
         else:
             st.session_state["warning"] = "Fichier déjà dans la base de données !"
-
+    return DB_FILE
 
 # Session state 
 if "show_uploader" not in st.session_state:
@@ -61,7 +61,7 @@ if st.session_state["show_uploader"]:
     uploaded_file: Optional[pd.DataFrame] = st.file_uploader(label="Uploader votre document")
     
     if uploaded_file is not None:
-        add_document_to_db(uploaded_file.name, DOC_PATH)
-        add_document_to_vector_db()
+        db_path = add_document_to_db(uploaded_file.name, DOC_PATH)
+        add_document_to_vector_db(db_path)
         st.session_state["show_uploader"] = False
         st.rerun()
