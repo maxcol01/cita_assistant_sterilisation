@@ -9,12 +9,17 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 import chromadb
 import os
+import streamlit as st
 
 # Project setup
 
 # Check for new documents
 
 # Store the document in vector db
+
+def add_document_to_vector_db():
+    with open("test.txt", mode="w") as file:
+        file.write("test to see if something happens when calling the function !")
 
 # Retriever
 

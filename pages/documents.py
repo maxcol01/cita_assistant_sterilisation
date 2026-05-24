@@ -2,7 +2,8 @@ import streamlit as st
 from pathlib import Path
 import pandas as pd
 from typing import Optional
-
+from datetime import datetime
+from assistant import add_document_to_vector_db
 # Constantes
 DOC_PATH = Path(__file__).parent.parent / "documents"
 DB_FILE = DOC_PATH / "documents_list.csv"
@@ -10,7 +11,7 @@ DB_FILE = DOC_PATH / "documents_list.csv"
 # Fonctions
 
 def add_document_to_db(file_name: str, path: Path) -> None:
-    row = {"name": file_name, "location": path / f"{file_name}"}
+    row = {"name": file_name, "location": path / f"{file_name}", "date":datetime.today().date()}
     df = pd.DataFrame([row])
     
     try:
@@ -25,6 +26,7 @@ def add_document_to_db(file_name: str, path: Path) -> None:
             st.session_state["is_saved"] = "Document ajouté avec succès dans vote base de connaissance !"
         else:
             st.session_state["warning"] = "Fichier déjà dans la base de données !"
+
 
 # Session state 
 if "show_uploader" not in st.session_state:
@@ -50,7 +52,7 @@ try:
 except FileNotFoundError:
     st.write("Aucun documents disponibles")
 else:
-    st.dataframe(db["name"])
+    st.dataframe(db[["name","date"]])
 
 if st.button("Ajouter un document"):
     st.session_state["show_uploader"] = True
@@ -60,5 +62,6 @@ if st.session_state["show_uploader"]:
     
     if uploaded_file is not None:
         add_document_to_db(uploaded_file.name, DOC_PATH)
+        add_document_to_vector_db()
         st.session_state["show_uploader"] = False
         st.rerun()
