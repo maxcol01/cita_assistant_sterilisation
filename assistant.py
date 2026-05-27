@@ -18,17 +18,17 @@ from pathlib import Path
 
 # Check for new documents
 
-def check_for_new_doc(db_path: Path) -> Optional[pd.DataFrame] :
+def get_latest_doc(db_path: Path) -> Optional[pd.DataFrame] :
     today = datetime.today().date()
     db = pd.read_csv(db_path, header = 0)
     if any(db.date == today):
         sub_db = db.loc[db.date == today]
         return sub_db
-    
+
 # Store the document in vector db
 
 def add_document_to_vector_db(db_path: Path):
-    new_doc_db  = check_for_new_doc(db_path)
+    new_doc_db  = get_latest_doc(db_path)
 
 # Retriever
 
