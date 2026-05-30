@@ -16,19 +16,23 @@ def add_document_to_db(names: list, path: Path) -> None:
         row = {"name": file_name, "location": path / f"{file_name}", "date":datetime.today().date()}
         list_files.append(row)
     df = pd.DataFrame(list_files)
+
+    # if we indeed selected some file to add:
     if len(df) != 0:
         try:
             db = pd.read_csv(DB_FILE, header=0)
         except FileNotFoundError:
             df.to_csv(DB_FILE, index=False)
-            st.session_state["is_saved"] = "Document ajouté avec succès dans vote base de connaissance !"
+            st.session_state["is_saved"] = "Document(s) ajouté(s) avec succès dans vote base de connaissance !"
         else:
-            if not any(db.name.str.contains(*names)):
-                db_full = pd.concat([db, df], axis=0)
-                db_full.to_csv(DB_FILE, index=False)
-                st.session_state["is_saved"] = "Document ajouté avec succès dans vote base de connaissance !"
-            else:
-                st.session_state["warning"] = "Fichier déjà dans la base de données !"
+            documents_to_look_for = "|".join(names)
+            duplicate = db.loc[db.name.str.contains(documents_to_look_for)]
+            db_full = pd.concat([db, df], axis=0)
+            db_full = db_full.drop_duplicates(subset=["name"])
+            db_full.to_csv(DB_FILE, index=False)
+            st.session_state["is_saved"] = "Document(s) ajouté(s) avec succès dans vote base de connaissance !"
+            if any(duplicate):
+                st.session_state["warning"] = "Certains fichier(s) déjà présents dans la base de données nous pas été ajoutés à nouveau!"
     return DB_FILE
 
 # Session state 
