@@ -34,7 +34,7 @@ def add_document_to_db(names: list, path: Path) -> None:
             db_full.to_csv(DB_FILE, index=False)
             st.session_state["is_saved"] = "Document(s) ajouté(s) avec succès dans vote base de connaissance !"
             if any(duplicate):
-                st.session_state["warning"] = "Certains fichier(s) déjà présents dans la base de données nous pas été ajoutés à nouveau!"
+                st.session_state["warning"] = "Certains fichier(s) déjà présents dans la base de données n'ont pas été ajoutés à nouveau!"
     return DB_FILE
 
 # Session state 
