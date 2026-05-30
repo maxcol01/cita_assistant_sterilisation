@@ -34,8 +34,8 @@ def add_document_to_db(names: list, path: Path) -> None:
             db_full.to_csv(DB_FILE, index=False)
             st.session_state["is_saved"] = "Document(s) ajouté(s) avec succès dans vote base de connaissance !"
             if any(duplicate):
-                st.session_state["warning"] = "Certains fichier(s) déjà présents dans la base de données n'ont pas été ajoutés à nouveau!"
-    return DB_FILE
+                st.session_state["warning"] = "Certains fichier(s) déjà présent(s) dans la base de données n'ont pas été ajoutés à nouveau!"
+    return DB_FILE, len(df)
 
 # Session state 
 if "show_uploader" not in st.session_state:
@@ -71,7 +71,7 @@ if st.session_state["show_uploader"]:
     
     if uploaded_file:
         names = [file_.name for file_ in uploaded_file]
-        db_path = add_document_to_db(names, DOC_PATH)
-        add_document_to_vector_db(db_path)
+        num_doc, db_path = add_document_to_db(names, DOC_PATH)
+        add_document_to_vector_db(num_doc, db_path)
         st.session_state["show_uploader"] = False
         st.rerun()
