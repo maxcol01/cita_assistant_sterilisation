@@ -26,7 +26,9 @@ def add_document_to_db(names: list, path: Path) -> None:
             st.session_state["is_saved"] = "Document(s) ajouté(s) avec succès dans vote base de connaissance !"
         else:
             documents_to_look_for = "|".join(names)
-            duplicate = db.loc[db.name.str.contains(documents_to_look_for)]
+            print(documents_to_look_for)
+            duplicate = db.name.str.contains(documents_to_look_for)
+            print(duplicate)
             db_full = pd.concat([db, df], axis=0)
             db_full = db_full.drop_duplicates(subset=["name"])
             db_full.to_csv(DB_FILE, index=False)
