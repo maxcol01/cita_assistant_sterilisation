@@ -10,22 +10,25 @@ DB_FILE = DOC_PATH / "documents_list.csv"
 
 # Fonctions
 
-def add_document_to_db(file_name: str, path: Path) -> None:
-    row = {"name": file_name, "location": path / f"{file_name}", "date":datetime.today().date()}
-    df = pd.DataFrame([row])
-    
-    try:
-        db = pd.read_csv(DB_FILE, header=0)
-    except FileNotFoundError:
-        df.to_csv(DB_FILE, index=False)
-        st.session_state["is_saved"] = "Document ajouté avec succès dans vote base de connaissance !"
-    else:
-        if not any(db.name.str.contains(file_name)):
-            db_full = pd.concat([db, df], axis=0)
-            db_full.to_csv(DB_FILE, index=False)
+def add_document_to_db(names: list, path: Path) -> None:
+    list_files = []
+    for file_name in names:
+        row = {"name": file_name, "location": path / f"{file_name}", "date":datetime.today().date()}
+        list_files.append(row)
+    df = pd.DataFrame(list_files)
+    if len(df) != 0:
+        try:
+            db = pd.read_csv(DB_FILE, header=0)
+        except FileNotFoundError:
+            df.to_csv(DB_FILE, index=False)
             st.session_state["is_saved"] = "Document ajouté avec succès dans vote base de connaissance !"
         else:
-            st.session_state["warning"] = "Fichier déjà dans la base de données !"
+            if not any(db.name.str.contains(*names)):
+                db_full = pd.concat([db, df], axis=0)
+                db_full.to_csv(DB_FILE, index=False)
+                st.session_state["is_saved"] = "Document ajouté avec succès dans vote base de connaissance !"
+            else:
+                st.session_state["warning"] = "Fichier déjà dans la base de données !"
     return DB_FILE
 
 # Session state 
@@ -60,8 +63,9 @@ if st.button("Ajouter un document"):
 if st.session_state["show_uploader"]:
     uploaded_file: Optional[pd.DataFrame] = st.file_uploader(label="Uploader votre document", accept_multiple_files=True)
     
-    if uploaded_file is not None:
-        db_path = add_document_to_db(uploaded_file.name, DOC_PATH)
+    if uploaded_file:
+        names = [file_.name for file_ in uploaded_file]
+        db_path = add_document_to_db(names, DOC_PATH)
         add_document_to_vector_db(db_path)
         st.session_state["show_uploader"] = False
         st.rerun()
