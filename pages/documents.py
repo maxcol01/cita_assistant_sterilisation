@@ -58,7 +58,7 @@ if st.button("Ajouter un document"):
     st.session_state["show_uploader"] = True
 
 if st.session_state["show_uploader"]:
-    uploaded_file: Optional[pd.DataFrame] = st.file_uploader(label="Uploader votre document")
+    uploaded_file: Optional[pd.DataFrame] = st.file_uploader(label="Uploader votre document", accept_multiple_files=True)
     
     if uploaded_file is not None:
         db_path = add_document_to_db(uploaded_file.name, DOC_PATH)
