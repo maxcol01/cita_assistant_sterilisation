@@ -13,7 +13,7 @@ DB_FILE = DOC_PATH / "documents_list.csv"
 def add_document_to_db(names: list, path: Path) -> None:
     list_files = []
     for file_name in names:
-        row = {"name": file_name, "location": path / f"{file_name}", "date":datetime.today().date()}
+        row = {"name": file_name, "location": path / f"{file_name}", "date":datetime.today()}
         list_files.append(row)
     df = pd.DataFrame(list_files)
 
