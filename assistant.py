@@ -27,7 +27,7 @@ def get_latest_doc(db_path: Path) -> Optional[pd.DataFrame] :
 
 # Store the document in vector db
 
-def add_document_to_vector_db(db_path: Path):
+def add_document_to_vector_db(num_doc: int, db_path: Path):
     new_doc_db  = get_latest_doc(db_path)
 
 # Retriever
