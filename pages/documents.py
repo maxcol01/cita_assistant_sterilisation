@@ -4,6 +4,8 @@ import pandas as pd
 from typing import Optional
 from datetime import datetime
 from assistant import add_document_to_vector_db
+
+
 # Constantes
 DOC_PATH = Path(__file__).parent.parent / "documents"
 DB_FILE = DOC_PATH / "documents_list.csv"
@@ -11,6 +13,16 @@ DB_FILE = DOC_PATH / "documents_list.csv"
 # Fonctions
 
 def add_document_to_db(names: list, path: Path) -> tuple[Path, int]:
+    """
+    Ajoute un document à la la base de données (non vectorielle)
+
+    Args: 
+        names (list): Liste des noms de documents 
+        path. (Path): Chamin vers le fichier ajouté
+
+    Returns:
+        tuple[Path, int]: un tuple contenant le chemin vers la base de données et le nombre de documents à ajouter
+    """
     list_files = []
     for file_name in names:
         row = {"name": file_name, "location": path / f"{file_name}", "date":datetime.today()}
