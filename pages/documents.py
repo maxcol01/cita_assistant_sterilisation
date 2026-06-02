@@ -76,7 +76,9 @@ try:
 except FileNotFoundError:
     st.write("Aucun documents disponibles")
 else:
-    st.dataframe(db[["name","date"]])
+    db["date"] = [item[:10] for item in db.date]
+    db.columns = ["Nom du fichier", "Location","Date d'ajout"]
+    st.dataframe(db[["Nom du fichier", "Date d'ajout"]])
 
 if st.button("Ajouter un document"):
     st.session_state["show_uploader"] = True
@@ -86,7 +88,7 @@ if st.session_state["show_uploader"]:
     
     if uploaded_file:
         names = [file_.name for file_ in uploaded_file]
-        num_doc, db_path = add_document_to_db(names, DOC_PATH)
+        db_path, num_doc = add_document_to_db(names, DOC_PATH)
         add_document_to_vector_db(num_doc, db_path)
         st.session_state["show_uploader"] = False
         st.rerun()
