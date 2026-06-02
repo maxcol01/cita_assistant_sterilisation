@@ -24,12 +24,33 @@ def get_latest_doc(num_doc: int, db_path: Path) -> Optional[pd.DataFrame] :
     db_new = db.iloc[:num_doc]
     return db_new
 
+
+# Read documents function (still limited to PDF for POC)
+def read_documents():
+    pass
+
+# Break documents into chunks function
+def break_into_chunks():
+    pass
+
+
+# Embed the chunks function
+def embed_chunks():
+    pass
+
+# Add to the vector store (using Chroma for POC)
+def add_to_vector_store():
+    pass
+
 # Store the document in vector db
 
-def add_document_to_vector_db(num_doc: int, db_path: Path):
-    print(type(num_doc))
-    print(type(db_path))
-    #new_doc_db  = get_latest_doc(num_doc, db_path)
+def add_document_to_vector_db(num_doc: int, db_path: Path) -> None:
+    new_doc_db  = get_latest_doc(num_doc, db_path)
+    print(len(new_doc_db))
+    # 1. Read the documents
+    # 2. Break documents into chunks
+    # 3. Vectorize the chunks
+    # 4. Add chunks to vector db
 
 # Retriever
 
