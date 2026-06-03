@@ -12,7 +12,6 @@ import os
 import streamlit as st
 from typing import Optional
 import pandas as pd
-from datetime import datetime
 from pathlib import Path
 # Project setup
 
@@ -26,7 +25,7 @@ def get_latest_doc(num_doc: int, db_path: Path) -> Optional[pd.DataFrame] :
 
 
 # Read documents function (still limited to PDF for POC)
-def read_documents():
+def read_documents(db: pd.DataFrame) -> None:
     pass
 
 # Break documents into chunks function
@@ -48,6 +47,7 @@ def add_document_to_vector_db(num_doc: int, db_path: Path) -> None:
     new_doc_db  = get_latest_doc(num_doc, db_path)
     print(len(new_doc_db))
     # 1. Read the documents
+    documents_list = read_documents(new_doc_db)
     # 2. Break documents into chunks
     # 3. Vectorize the chunks
     # 4. Add chunks to vector db
