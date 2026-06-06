@@ -26,6 +26,9 @@ def get_latest_doc(num_doc: int, db_path: Path) -> Optional[pd.DataFrame] :
 
 # Read documents function (still limited to PDF for POC)
 def read_documents(db: pd.DataFrame) -> None:
+    # limit to pdf only for this first iteration
+    if db.name.str.contains(".pdf"):
+        pass
     pass
 
 # Break documents into chunks function
