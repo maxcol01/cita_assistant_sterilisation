@@ -27,9 +27,11 @@ def get_latest_doc(num_doc: int, db_path: Path) -> Optional[pd.DataFrame] :
 # Read documents function (still limited to PDF for POC)
 def read_documents(db: pd.DataFrame) -> None:
     # limit to pdf only for this first iteration
-    if db.name.str.contains(".pdf"):
+    for doc_path in db.location:
         pass
     pass
+
+    
 
 # Break documents into chunks function
 def break_into_chunks():
@@ -49,6 +51,7 @@ def add_to_vector_store():
 def add_document_to_vector_db(num_doc: int, db_path: Path) -> None:
     new_doc_db  = get_latest_doc(num_doc, db_path)
     print(len(new_doc_db))
+    print(new_doc_db)
     # 1. Read the documents
     documents_list = read_documents(new_doc_db)
     # 2. Break documents into chunks

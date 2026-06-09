@@ -70,6 +70,15 @@ if "is_saved" in st.session_state:
 st.header("Liste des documents disponibles pour la consultation de l'assistant")
 st.text("Voci la liste des documents actuellement dans votre base de données consultable par l'assistant IA. Pour ajouter des documents, sélectionner le bouton dédé ci-dessous. Ce(s) document(s) sera(seront) automatiquement ajouté(s) à vos sources consultables.")
 
+st.divider()
+
+st.text("Le(s) format(s) de fichier(s) accepté(s)")
+st.markdown("- PDF ✅")
+st.markdown("- WORD [WIP] ⏳")
+st.markdown("- EXCEL [WIP] ⏳")
+st.markdown("- POWERPOINT [WIP] ⏳")
+
+st.divider()
 
 try:
     db = pd.read_csv(DB_FILE, header=0)
@@ -84,11 +93,11 @@ if st.button("Ajouter un document"):
     st.session_state["show_uploader"] = True
 
 if st.session_state["show_uploader"]:
-    uploaded_file: Optional[pd.DataFrame] = st.file_uploader(label="Uploader votre document", accept_multiple_files=True)
+    uploaded_file: Optional[pd.DataFrame] = st.file_uploader(label="Uploader votre document", accept_multiple_files=True, type=["pdf"])
     
     if uploaded_file:
         names = [file_.name for file_ in uploaded_file]
         db_path, num_doc = add_document_to_db(names, DOC_PATH)
-        #add_document_to_vector_db(num_doc, db_path)
+        add_document_to_vector_db(num_doc, db_path)
         st.session_state["show_uploader"] = False
         st.rerun()
