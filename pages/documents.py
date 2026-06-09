@@ -38,7 +38,7 @@ def add_document_to_db(names: list, path: Path) -> tuple[Path, int]:
             length_db_new = len(df)
             items_added = length_db_new
             df.to_csv(DB_FILE, index=False)
-            st.session_state["is_saved"] = "Document(s) ajouté(s) avec succès dans vote base de connaissance !"
+            st.session_state["is_saved"] = f" {items_added} document(s) ajouté(s) avec succès dans vote base de connaissance !"
         else:
             documents_to_look_for = "|".join(names)
             duplicate = db.name.str.contains(documents_to_look_for)
@@ -47,7 +47,7 @@ def add_document_to_db(names: list, path: Path) -> tuple[Path, int]:
             length_db_new = len(db_full)
             items_added = length_db_new - length_db
             db_full.to_csv(DB_FILE, index=False)
-            st.session_state["is_saved"] = "Document(s) ajouté(s) avec succès dans vote base de connaissance !"
+            st.session_state["is_saved"] = f"{items_added} document(s) ajouté(s) avec succès dans vote base de connaissance !"
             if any(duplicate):
                 st.session_state["warning"] = "Certains fichier(s) déjà présent(s) dans la base de données n'ont pas été ajoutés à nouveau!"
     return DB_FILE, items_added
@@ -89,6 +89,6 @@ if st.session_state["show_uploader"]:
     if uploaded_file:
         names = [file_.name for file_ in uploaded_file]
         db_path, num_doc = add_document_to_db(names, DOC_PATH)
-        add_document_to_vector_db(num_doc, db_path)
+        #add_document_to_vector_db(num_doc, db_path)
         st.session_state["show_uploader"] = False
         st.rerun()
