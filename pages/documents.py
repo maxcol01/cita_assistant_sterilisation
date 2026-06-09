@@ -72,11 +72,11 @@ st.text("Voci la liste des documents actuellement dans votre base de données co
 
 st.divider()
 
-st.text("Le(s) format(s) de fichier(s) accepté(s)")
-st.markdown("- PDF ✅")
-st.markdown("- WORD [WIP] ⏳")
-st.markdown("- EXCEL [WIP] ⏳")
-st.markdown("- POWERPOINT [WIP] ⏳")
+st.text("Le(s) format(s) de fichier(s) accepté(s):")
+st.markdown("- PDF -- ✅")
+st.markdown("- WORD [WIP] -- ⏳")
+st.markdown("- EXCEL [WIP] -- ⏳")
+st.markdown("- POWERPOINT [WIP] -- ⏳")
 
 st.divider()
 
