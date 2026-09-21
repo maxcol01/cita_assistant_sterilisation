@@ -2,7 +2,7 @@
 
 Ce projet est un assistant intelligent basé sur l'IA (RAG - Retrieval-Augmented Generation) conçu pour aider le personnel du service de stérilisation du **CHC Citadelle à Liège**. Il permet d'interroger la documentation technique et les guides de bonnes pratiques via une interface de chat simple et intuitive.
 
-## 🚀 Fonctionnalités
+##  Fonctionnalités
 
 - **Chatbot Intelligent** : Posez des questions en langage naturel sur les procédures de stérilisation.
 - **Réponses Sourcées** : Chaque réponse inclut les sources précises (nom du fichier et numéro de page) extraites des documents officiels.
@@ -10,7 +10,7 @@ Ce projet est un assistant intelligent basé sur l'IA (RAG - Retrieval-Augmented
 - **Base de Connaissance Dynamique** : Interface dédiée pour uploader de nouveaux PDF et les indexer instantanément dans la base vectorielle.
 - **Recherche Sémantique** : Utilisation de `ChromaDB` et des embeddings OpenAI pour trouver l'information la plus pertinente, même si les mots exacts ne correspondent pas.
 
-## 🛠️ Architecture Technique
+##  Architecture Technique
 
 - **Frontend** : [Streamlit](https://streamlit.io/)
 - **Orchestration RAG** : [LangChain](https://www.langchain.com/)
@@ -19,7 +19,7 @@ Ce projet est un assistant intelligent basé sur l'IA (RAG - Retrieval-Augmented
 - **Traitement PDF** : [PyMuPDF4LLM](https://github.com/pymupdf/PyMuPDF4LLM)
 - **Observabilité** : Intégration optionnelle avec [LangSmith](https://www.langchain.com/langsmith) pour le monitoring des chaînes.
 
-## 📂 Structure du Projet
+##  Structure du Projet
 
 - `app.py` : Point d'entrée de l'application Streamlit (Interface Chat).
 - `assistant.py` : Logique métier du RAG (Indexation, Retrieval, Chaîne de réponse).
@@ -29,7 +29,7 @@ Ce projet est un assistant intelligent basé sur l'IA (RAG - Retrieval-Augmented
 - `documents/` : Stockage des fichiers PDF et index CSV.
 - `chroma_db/` : Base de données vectorielle persistante.
 
-## ⚙️ Installation
+##  Installation
 
 1. **Cloner le repository** :
    ```bash
@@ -55,7 +55,7 @@ Ce projet est un assistant intelligent basé sur l'IA (RAG - Retrieval-Augmented
    LANGSMITH_API_KEY=votre_cle_langsmith (optionnel)
    ```
 
-## 📖 Utilisation
+##  Utilisation
 
 Lancez l'application avec Streamlit :
 ```bash
