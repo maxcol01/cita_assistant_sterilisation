@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 from typing import Optional
 from datetime import datetime
-from assistant import add_document_to_vector_db
+from assistant import add_documents_to_vector_db
 
 
 # Constantes
@@ -97,7 +97,12 @@ if st.session_state["show_uploader"]:
     
     if uploaded_file:
         names = [file_.name for file_ in uploaded_file]
+        # Sauvegarde physique des fichiers
+        for file_ in uploaded_file:
+            with open(DOC_PATH / file_.name, "wb") as f:
+                f.write(file_.getbuffer())
+        
         db_path, num_doc = add_document_to_db(names, DOC_PATH)
-        add_document_to_vector_db(num_doc, db_path)
+        add_documents_to_vector_db(db_path, num_doc)
         st.session_state["show_uploader"] = False
         st.rerun()

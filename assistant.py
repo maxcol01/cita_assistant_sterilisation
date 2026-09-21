@@ -1,6 +1,7 @@
 # IMPORT OF PACKAGES
 
-from langchain_community.document_loaders import PyMuPDFLoader
+
+from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_core.prompts import PromptTemplate
@@ -14,6 +15,7 @@ from typing import Optional, List
 import pandas as pd
 from pathlib import Path
 import tiktoken
+import pymupdf4llm
 from config import OPEN_AI_API_KEY
 from prompt import prompt_template
 
@@ -34,10 +36,10 @@ def length_token(text: str) -> int:
 
 # Document splitter
 splitter = RecursiveCharacterTextSplitter(
-    chunk_size=512,
-    chunk_overlap=100,
+    chunk_size=900,
+    chunk_overlap=150,
     length_function=length_token,
-    separators=["\n\n", "\n", ". ", " ", ""]
+    separators=["\n# ", "\n## ", "\n### ", "\n\n", "\n", ". ", " ", ""]
 )
 
 # Project setup
@@ -56,8 +58,20 @@ def read_documents(db: pd.DataFrame) -> List:
     all_documents = []
     for doc_path in db.location:
         if os.path.exists(doc_path) and doc_path.lower().endswith(".pdf"):
-            loader = PyMuPDFLoader(doc_path)
-            all_documents.extend(loader.load())
+            pages = pymupdf4llm.to_markdown(doc_path, page_chunks=True)
+            for i, page in enumerate(pages):
+                metadata = {"source": doc_path}
+                # Check for page number in metadata or use index
+                page_num = page.get("metadata", {}).get("page") or page.get("page")
+                if page_num is None:
+                    page_num = i + 1
+                metadata["page"] = page_num
+                
+                doc = Document(
+                    page_content=page["text"],
+                    metadata=metadata
+                )
+                all_documents.append(doc)
     return all_documents
 
 # Break documents into chunks function
@@ -96,7 +110,7 @@ def get_rag_chain():
         embedding_function=embeddings,
         persist_directory=CHROMA_PATH
     )
-    retriever = vector_store.as_retriever(search_kwargs={"k": 5})
+    retriever = vector_store.as_retriever(search_kwargs={"k": 8})
     
     prompt = PromptTemplate.from_template(prompt_template)
     llm = ChatOpenAI(model=LLM_MODEL, temperature=0)
