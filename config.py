@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY")
+THAURA_AI_API_KEY = os.getenv("THAURA_AI_API_KEY")
 LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
 
 # Configuration de l'environnement pour LangSmith

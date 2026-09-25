@@ -16,12 +16,13 @@ import pandas as pd
 from pathlib import Path
 import tiktoken
 import pymupdf4llm
-from config import OPEN_AI_API_KEY
+from config import OPEN_AI_API_KEY, THAURA_AI_API_KEY
 from prompt import prompt_template
 
 # Models setup
 EMBEDDING_MODEL = "text-embedding-3-small"
-LLM_MODEL = "gpt-4o-mini"
+LLM_MODEL = "thaura"#"gpt-4o-mini"
+BASE_URL = "https://backend.thaura.ai/v1"
 CHROMA_PATH = "./chroma_db"
 COLLECTION_NAME = "my_db_sterilisation"
 
@@ -113,7 +114,7 @@ def get_rag_chain():
     retriever = vector_store.as_retriever(search_kwargs={"k": 8})
     
     prompt = PromptTemplate.from_template(prompt_template)
-    llm = ChatOpenAI(model=LLM_MODEL, temperature=0)
+    llm = ChatOpenAI(model=LLM_MODEL, temperature=0, base_url=BASE_URL, api_key=THAURA_AI_API_KEY)
 
     def format_docs(docs):
         return "\n\n".join(
