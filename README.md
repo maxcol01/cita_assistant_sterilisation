@@ -14,7 +14,7 @@ Ce projet est un assistant intelligent basé sur l'IA (RAG - Retrieval-Augmented
 
 - **Frontend** : [Streamlit](https://streamlit.io/)
 - **Orchestration RAG** : [LangChain](https://www.langchain.com/)
-- **LLM** : OpenAI `gpt-4o-mini`
+- **LLM** : Thaura AI `thaura`
 - **Base Vectorielle** : [ChromaDB](https://www.trychroma.com/)
 - **Traitement PDF** : [PyMuPDF4LLM](https://github.com/pymupdf/PyMuPDF4LLM)
 - **Observabilité** : Intégration optionnelle avec [LangSmith](https://www.langchain.com/langsmith) pour le monitoring des chaînes.
