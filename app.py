@@ -53,11 +53,7 @@ with st.sidebar:
     if path.exists():
         df = pd.read_csv(path, header=0)
         st.dataframe(df)
-        
-        if st.button("Indexer les documents"):
-            with st.spinner("Indexation en cours..."):
-                add_documents_to_vector_db(path)
-                st.success("Indexation terminée !")
-                st.session_state["rag_chain"] = get_rag_chain()
     else:
         st.error("Liste des documents introuvable.")
+
+

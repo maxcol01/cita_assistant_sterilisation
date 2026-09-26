@@ -96,13 +96,14 @@ if st.session_state["show_uploader"]:
     uploaded_file: Optional[pd.DataFrame] = st.file_uploader(label="Uploader votre document", accept_multiple_files=True, type=["pdf"])
     
     if uploaded_file:
-        names = [file_.name for file_ in uploaded_file]
-        # Sauvegarde physique des fichiers
-        for file_ in uploaded_file:
-            with open(DOC_PATH / file_.name, "wb") as f:
-                f.write(file_.getbuffer())
-        
-        db_path, num_doc = add_document_to_db(names, DOC_PATH)
-        add_documents_to_vector_db(db_path, num_doc)
+        with st.spinner("Indexation en cours..."):
+            names = [file_.name for file_ in uploaded_file]
+            # Sauvegarde physique des fichiers
+            for file_ in uploaded_file:
+                with open(DOC_PATH / file_.name, "wb") as f:
+                    f.write(file_.getbuffer())
+            
+            db_path, num_doc = add_document_to_db(names, DOC_PATH)
+            add_documents_to_vector_db(db_path, num_doc)
         st.session_state["show_uploader"] = False
         st.rerun()
