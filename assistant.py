@@ -8,7 +8,6 @@ from langchain_core.prompts import PromptTemplate
 from langchain_chroma import Chroma
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
-import chromadb
 import os
 import streamlit as st
 from typing import Optional, List
@@ -16,7 +15,7 @@ import pandas as pd
 from pathlib import Path
 import tiktoken
 import pymupdf4llm
-from config import OPEN_AI_API_KEY, THAURA_AI_API_KEY
+from config import THAURA_AI_API_KEY
 from prompt import prompt_template
 
 # Models setup
