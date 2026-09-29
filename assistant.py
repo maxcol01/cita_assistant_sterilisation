@@ -3,11 +3,12 @@
 
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_openai import  ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 from langchain_chroma import Chroma
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+from langchain_huggingface import HuggingFaceEmbeddings
 import os
 import streamlit as st
 from typing import Optional, List
@@ -19,15 +20,16 @@ from config import THAURA_AI_API_KEY
 from prompt import prompt_template
 
 # Models setup
-EMBEDDING_MODEL = "text-embedding-3-small"
+#EMBEDDING_MODEL = "text-embedding-3-small"
+EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 LLM_MODEL = "thaura"#"gpt-4o-mini"
 BASE_URL = "https://backend.thaura.ai/v1"
-CHROMA_PATH = "./chroma_db"
+CHROMA_PATH = str(Path(__file__).resolve().parent / "chroma_db")
 COLLECTION_NAME = "my_db_sterilisation"
 
 # Initialize embeddings
-embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL)
-
+#embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL)
+embeddings = HuggingFaceEmbeddings(model=EMBEDDING_MODEL)
 # Initialize Tokenizer for splitter
 tokenizer = tiktoken.get_encoding("o200k_harmony")
 
