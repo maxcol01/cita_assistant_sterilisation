@@ -45,6 +45,7 @@ COLLECTION_NAME = "my_db_sterilisation"
 # Initialize embeddings
 #embeddings = OpenAIEmbeddings(model=EMBEDDING_MODEL)
 embeddings = HuggingFaceEmbeddings(model=EMBEDDING_MODEL)
+# TODO: Remplacer le tokenizer o200k_harmony (optimisé anglais) par un comptage adapté au français
 # Initialize Tokenizer for splitter
 tokenizer = tiktoken.get_encoding("o200k_harmony")
 
@@ -111,6 +112,7 @@ def add_documents_to_vector_db(db_path: Path, num_doc: int = None) -> None:
     # 2. Break documents into chunks
     chunks = break_into_chunks(documents)
     
+    # TODO: Remplacer Chroma.from_documents() par vector_store.add_documents() pour un ajout incrémental (plus rapide avec beaucoup de docs)
     # 3. Add to vector store
     # We use the LangChain wrapper for easier integration
     vector_store = Chroma.from_documents(

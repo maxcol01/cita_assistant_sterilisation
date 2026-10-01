@@ -55,6 +55,7 @@ def add_document_to_db(names: list, path: Path) -> tuple[Path, int]:
             df.to_csv(DB_FILE, index=False)
             st.session_state["is_saved"] = f" {items_added} document(s) ajouté(s) avec succès dans vote base de connaissance !"
         else:
+            # TODO: Remplacer le regex "|".".join(names)" par db.name.isin(names) (plus fiable avec des points dans les noms)
             documents_to_look_for = "|".join(names)
             duplicate = db.name.str.contains(documents_to_look_for)
             db_full = pd.concat([db, df], axis=0)
@@ -102,6 +103,7 @@ except FileNotFoundError:
 else:
     db["date"] = [item[:10] for item in db.date]
     db.columns = ["Nom du fichier", "Location","Date d'ajout"]
+    # TODO: Ajouter un bouton "Retirer" pour supprimer un document de la base vectorielle
     st.dataframe(db[["Nom du fichier", "Date d'ajout"]])
 
 if st.button("Ajouter un document"):

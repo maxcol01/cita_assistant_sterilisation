@@ -24,10 +24,12 @@ st.set_page_config(page_title="Assistant de Knowledge Management", layout="wide"
 st.title("Assistant de Knowledge Management:")
 st.header("Service de stérilisation CHC Citadelle Liège")
 
+# TODO: Valider que THAURA_AI_API_KEY est présente avant d'initialiser la chaîne RAG
 # Initialisation de la chaîne RAG
 if "rag_chain" not in st.session_state:
     st.session_state["rag_chain"] = get_rag_chain()
 
+# TODO: Historique persistant optionnel à ajouter (sauvegarde JSON locale entre sessions)
 # Gestion de l'historique du chat
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
@@ -37,6 +39,8 @@ for message in st.session_state["messages"]:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+# TODO: Afficher 3-4 boutons de questions fréquentes sous le champ de saisie
+# TODO: Afficher les sources en liens cliquables vers le PDF ouvert à la bonne page
 # Entrée utilisateur
 if prompt := st.chat_input("Entrez votre question ici, je me ferai un plaisir de vous répondre."):
     # Ajouter le message utilisateur à l'historique
@@ -49,12 +53,14 @@ if prompt := st.chat_input("Entrez votre question ici, je me ferai un plaisir de
         message_placeholder = st.empty()
         full_response = ""
         
-        # On utilise invoke pour la simplicité, ou stream pour l'effet temps réel
+        # TODO: Remplacer .invoke() par .stream() pour afficher la réponse en temps réel
         try:
+            #TODO: Streaming de la réponse au lieu de .invoke()
             response = st.session_state["rag_chain"].invoke(prompt)
             full_response = response
             message_placeholder.markdown(full_response)
         except Exception as e:
+            # TODO: Distinguer erreurs réseau (timeout, 500) et proposer un retry avec message propre
             st.error(f"Erreur lors de la génération de la réponse : {e}")
             full_response = "Désolé, une erreur est survenue."
             message_placeholder.markdown(full_response)

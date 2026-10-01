@@ -21,6 +21,7 @@ OPEN_AI_API_KEY = os.getenv("OPEN_AI_API_KEY")
 THAURA_AI_API_KEY = os.getenv("THAURA_AI_API_KEY")
 LANGSMITH_API_KEY = os.getenv("LANGSMITH_API_KEY")
 
+# TODO: N'activer LANGSMITH_TRACING que si LANGSMITH_API_KEY est présente (éviter les warnings inutiles)
 # Configuration de l'environnement pour LangSmith
 os.environ["LANGSMITH_TRACING"] = "true"
 os.environ["LANGSMITH_ENDPOINT"] = "https://api.smith.langchain.com"
