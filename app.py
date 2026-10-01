@@ -4,6 +4,21 @@ from assistant import get_rag_chain, add_documents_to_vector_db
 from pathlib import Path
 import os
 
+# ============================================================
+# Assistant de Knowledge Management - Service de Stérilisation
+# CHC Citadelle Liège
+# ============================================================
+# Point d'entrée de l'application Streamlit.
+# Ce script gère :
+#   1. L'affichage du titre et de la configuration de page
+#   2. L'initialisation de la chaîne RAG (via assistant.py)
+#   3. La gestion de l'historique des messages du chat
+#   4. L'envoi de la question à la chaîne RAG et l'affichage
+#      de la réponse générée par le LLM
+#   5. Une sidebar qui liste les documents indexés dans la base
+#      vectorielle (lecture du CSV documents_list.csv)
+# ============================================================
+
 st.set_page_config(page_title="Assistant de Knowledge Management", layout="wide")
 
 st.title("Assistant de Knowledge Management:")
@@ -55,5 +70,3 @@ with st.sidebar:
         st.dataframe(df)
     else:
         st.error("Liste des documents introuvable.")
-
-
