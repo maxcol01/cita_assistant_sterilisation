@@ -1,5 +1,19 @@
 import os
-from dotenv import load_dotenv  
+from dotenv import load_dotenv
+
+# ============================================================
+# Configuration de l'environnement
+# ============================================================
+# Ce module centralise la lecture des variables d'environnement
+# depuis le fichier .env et configure les paramètres globaux :
+#   1. Chargement du fichier .env (clés API)
+#   2. Clés nécessaires : OpenAI, Thaura AI, LangSmith (optionnel)
+#   3. Activation du tracing LangSmith pour le monitoring
+#      des chaînes RAG (endpoint, projet, clé)
+#   4. Export des variables dans os.environ pour que les
+#      bibliothèques (LangChain, OpenAI SDK) les retrouvent
+# ============================================================
+  
 
 load_dotenv()
 

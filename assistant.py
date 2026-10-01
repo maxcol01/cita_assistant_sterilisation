@@ -19,6 +19,21 @@ import pymupdf4llm
 from config import THAURA_AI_API_KEY
 from prompt import prompt_template
 
+# ============================================================
+# Logique RAG - Assistant de Stérilisation (CHC Citadelle)
+# ============================================================
+# Ce module contient toute la logique métier du pipeline RAG :
+#   1. Configuration des modèles (embeddings locaux MiniLM, LLM Thaura)
+#   2. Lecture et extraction des documents PDF en Markdown
+#      (via PyMuPDF4LLM, avec métadonnées source + page)
+#   3. Découpage des documents en chunks (~900 tokens)
+#      avec chevauchement de 150 tokens
+#   4. Indexation incrémentale dans la base vectorielle ChromaDB
+#   5. Construction de la chaîne RAG complète :
+#      retrieval (top-k=8) → formatage du contexte → prompt → LLM
+# ============================================================
+
+
 # Models setup
 #EMBEDDING_MODEL = "text-embedding-3-small"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"

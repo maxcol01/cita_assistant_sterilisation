@@ -5,6 +5,21 @@ from typing import Optional
 from datetime import datetime
 from assistant import add_documents_to_vector_db
 
+# ============================================================
+# Page de gestion des documents - Assistant Stérilisation
+# ============================================================
+# Cette page Streamlit (accessible via le menu pages/) permet :
+#   1. D'afficher la liste des documents actuellement indexés
+#      (lecture du CSV documents_list.csv)
+#   2. D'uploader de nouveaux fichiers PDF dans le dossier
+#      documents/ et de les enregistrer dans le CSV
+#   3. De déclencher l'indexation vectorielle automatique
+#      (appel à add_documents_to_vector_db d'assistant.py)
+#   4. De gérer les doublons et afficher des messages
+#      de confirmation ou d'avertissement à l'utilisateur
+# ============================================================
+
+
 
 # Constantes
 DOC_PATH = Path(__file__).parent.parent / "documents"
