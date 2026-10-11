@@ -30,7 +30,7 @@ from prompt import prompt_template
 #      avec chevauchement de 150 tokens
 #   4. Indexation incrémentale dans la base vectorielle ChromaDB
 #   5. Construction de la chaîne RAG complète :
-#      retrieval (top-k=8) → formatage du contexte → prompt → LLM
+#      retrieval (top-k=8) -> formatage du contexte -> prompt -> LLM
 # ============================================================
 
 
